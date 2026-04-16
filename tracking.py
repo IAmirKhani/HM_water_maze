@@ -38,7 +38,7 @@ def analyze_tracking(filepath, spatial_bin_cm=2.0, speed_smooth_ms=400.0):
     except (ValueError, TypeError):
         df = df.iloc[1:].reset_index(drop=True)
 
-    df.columns = ["time", "x", "y"]
+    df.columns = ["record", "time", "x", "y"]
     df = df.replace("-", np.nan).apply(pd.to_numeric, errors="coerce")
 
     # Interpolate short gaps, then drop any remaining NaNs at edges
@@ -159,11 +159,11 @@ def analyze_tracking(filepath, spatial_bin_cm=2.0, speed_smooth_ms=400.0):
 # ── Run on the provided file ────────────────────────────────────────────
 if __name__ == "__main__":
     fig, res = analyze_tracking(
-        "/Users/sachuriga/Downloads/test-track_wm_lesions.xlsx",
+        "/Users/amir/Desktop/genzel_lab/water_maze_path_dir/paths extracted/1pt3 SW.xlsx",
         spatial_bin_cm=2.0,
         speed_smooth_ms=400.0,
     )
-    fig.savefig("/Users/sachuriga/Downloads/tracking_analysis.png", dpi=150, bbox_inches="tight")
+    fig.savefig("/Users/amir/Desktop/genzel_lab/water_maze_path_dir/results/tracking_analysis.png", dpi=150, bbox_inches="tight")
     print("Done. Speed range: {:.1f} – {:.1f} cm/s".format(
         np.nanmin(res["speed"]), np.nanmax(res["speed"])
     ))
